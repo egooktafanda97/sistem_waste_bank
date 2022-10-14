@@ -23,7 +23,7 @@
                     <label>Menu</label>
                 </li>
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                    <a href="<?= base_url("Home/index") ?>" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                 </li>
                 <li class="nav-item">
                     <a href="<?= base_url("Transaksi/index") ?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-exchange"></i></span><span class="pcoded-mtext">Transaksi</span></a>
@@ -46,7 +46,10 @@
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa fa-trash-o"></i></span><span class="pcoded-mtext">Kelola Sampah</span></a>
                     <ul class="pcoded-submenu">
                         <li>
-                            <a href="<?= base_url("Rekap/index") ?>">Rekapitulasi</a>
+                            <a href="<?= base_url("Rekap/index") ?>">Rekapitulasi Berat</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url("Rekap/rekap_penjualan_sampah") ?>">Rekapitulasi Penjulan Sampah</a>
                         </li>
                         <li>
                             <a href="<?= base_url("Sampah/index") ?>">Data Jenis Sampah</a>
@@ -54,6 +57,18 @@
                         <li>
                             <a href="<?= base_url("Barang/index") ?>">Data Sampah</a>
                         </li>
+                    </ul>
+                </li>
+                <li class="nav-item pcoded-hasmenu">
+                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa fa-money"></i></span><span class="pcoded-mtext">Keuangan</span></a>
+                    <ul class="pcoded-submenu">
+                        <li>
+                            <a href="<?= base_url("Keuangan/index") ?>">Keuangan Bank</a>
+                        </li>
+                        <!-- <li>
+                            <a href="<?= base_url("Keuangan/catatan_bulanan") ?>">Pencatatan Bulanan</a>
+                        </li> -->
+
                     </ul>
                 </li>
 

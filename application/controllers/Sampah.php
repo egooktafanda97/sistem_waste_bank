@@ -11,6 +11,9 @@ class Sampah extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Nasabah_model');
+        if (!auth()["user"]["id_bank_sampah"]) {
+            redirect("Login");
+        }
     }
     public function index()
     {

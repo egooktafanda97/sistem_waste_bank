@@ -23,9 +23,6 @@
             <div class="card-header">
                 <h5><?= $title ?? "" ?></h5>
                 <div class="card-header-right" style="display: flex; align-items: center;">
-                    <div style="margin-right: 30px;">
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Buat Trasaksi Baru</button>
-                    </div>
                     <div class="btn-group card-option">
                         <button type="button" class="btn dropdown-toggle btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="feather icon-more-horizontal"></i>
@@ -40,16 +37,21 @@
                 </div>
             </div>
             <div class="p-3">
-                <form action="" method="get">
-                    <div style="display: flex;justify-content: flex-end; align-items: center;">
+
+                <div style="display: flex;justify-content: space-between; align-items: center;">
+                    <div style="margin-right: 30px;">
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus"></i> Buat Trasaksi Baru</button>
+                    </div>
+                    <form action="" method="get">
                         <div>
                             <div class="form-group" style="display: flex;">
-                                <input type="text" name="cari" class="form-control form-control-sm form-control form-control-sm-sm" id="cari" placeholder="Cari">
+                                <input type="text" name="cari" class="form-control form-control-sm form-control form-control-sm-sm" id="cari" placeholder="Cari nama nasabah">
                                 <button class="btn btn-primary btn-sm ml-1" style="width: 80px;">Cari</button>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
                 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" width="100%">
                     <thead>
                         <tr>
@@ -179,7 +181,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_nasabah">Berat / Buah</label>
-                                <input type="number" name="berat" id="berat" class="form-control form-control-sm kode" placeholder="" required readonly value="0">
+                                <input type="text" name="berat" id="berat" class="form-control form-control-sm kode decimal" placeholder="" required readonly value="0.0">
                             </div>
                         </div>
                         <div class="col-md-6">

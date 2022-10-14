@@ -63,10 +63,10 @@
             selector: 'td:first-child'
         },
         searching: false,
-        paging: false,
+        paging: true,
         info: false
     });
-
+    $("#datatable-responsive_length").hide();
     $(".edit").click(function() {
         $(".kode").addClass("ValidBorder");
         $(".kode").removeClass("inValidBorder");

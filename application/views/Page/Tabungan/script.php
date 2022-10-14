@@ -46,9 +46,10 @@
             selector: 'td:first-child'
         },
         searching: false,
-        paging: false,
+        paging: true,
         info: false
     });
+    $("#datatable-responsive_length").hide();
 </script>
 <!-- action -->
 <script>

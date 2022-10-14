@@ -12,6 +12,9 @@ class Transaksi extends CI_Controller
         parent::__construct();
         $this->load->model('Nasabah_model');
         $this->load->library('form_validation');
+        if (!auth()["user"]["id_bank_sampah"]) {
+            redirect("Login");
+        }
     }
     public function index()
     {

@@ -27,7 +27,80 @@
     <link rel="stylesheet" href="<?= base_url("assets/css/") ?>costum_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
+    <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <style>
+        #datatable-responsive_paginate {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
 
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .pagination .active a {
+            color: #143361;
+            background-color: transparent;
+            font-weight: 600;
+        }
+
+        .pagination .active a:hover {
+            background-color: transparent;
+            color: #143361;
+            border: 0px;
+        }
+
+        .pagination .active a:focus {
+            background-color: transparent;
+            color: #143361;
+            outline: none;
+        }
+
+        .pagination li a {
+            border: 1px;
+            margin-left: 0px;
+            color: #707070;
+            padding: 7px 2px;
+            margin: 0px 20px;
+        }
+
+        .pagination li a:hover {
+            background-color: transparent;
+            color: #4a90e2;
+            padding-bottom: 2px;
+            border-bottom: 1px solid;
+        }
+
+        .pagination li a:focus {
+            outline: none;
+            background-color: transparent;
+            /*color:#707070;*/
+        }
+
+        .pagination li:first-child a,
+        .pagination li:last-child a {
+            border: 2px solid #143361 !important;
+            border-radius: 6px;
+            margin: 0px;
+            padding: 6px 12px;
+            border: 2px solid;
+            font-size: 14px;
+            color: #143361;
+        }
+
+        .pagination li:first-child a:hover,
+        .pagination li:last-child a:hover {
+            text-decoration: none !important;
+            color: #fff;
+            background-color: #143361;
+        }
+
+        .pagination li:first-child a:focus,
+        .pagination li:last-child a:focus {
+            outline: none;
+        }
+    </style>
 
 </head>
 
@@ -109,7 +182,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Bank Sampah Pelalawan</h5>
+                                <!-- <h5 class="m-b-10">Bank Sampah Pelalawan</h5> -->
                             </div>
                         </div>
                     </div>
@@ -148,6 +221,8 @@
     <script src="<?= base_url("assets/js/") ?>costum_js.js"></script>
     <script src="https://www.jqueryscript.net/demo/Bootstrap-4-Dropdown-Select-Plugin-jQuery/dist/js/bootstrap-select.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js">
+    </script>
     <?php !empty($script) ? $this->load->view('Page/' . $script) : ""; ?>
 
 </body>

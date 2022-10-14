@@ -19,6 +19,18 @@
     </script>
 <?php endif ?>
 <script>
+    (function() {
+        $("#save").prop("disabled", true);
+    })();
+    $('.decimal').keyup(function() {
+        var val = $(this).val();
+        if (isNaN(val)) {
+            val = val.replace(/[^0-9\.]/g, '');
+            if (val.split('.').length > 2)
+                val = val.replace(/\.+$/, "");
+        }
+        $(this).val(val);
+    });
     const formatRupiah = (money) => {
         return new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -42,16 +54,17 @@
             selector: 'td:first-child'
         },
         searching: false,
-        paging: false,
+        paging: true,
         info: false,
         filter: false
     });
+    $("#datatable-responsive_length").hide();
     // calculate
     $("#id_nasabah").change(function() {
         $("[name='jenis_sampah']").attr("readonly", false);
-        $("[name='berat']").prop("readonly", false);
-        $("[name='satuan']").attr("readonly", false);
-        $("[name='harga']").prop("readonly", false);
+        $("[name='berat']").prop("readonly", true);
+        $("[name='satuan']").attr("readonly", true);
+        $("[name='harga']").prop("readonly", true);
         $("[name='nama_barang']").attr("readonly", true);
 
     });
@@ -61,6 +74,7 @@
         if ($(this).val() == "") {
             $("[name='jenis_sampah']").attr("readonly", false);
             // $("[name='harga']").prop("readonly", false);
+            $("[name='berat']").prop("readonly", true);
             $("[name='nama_barang']").attr("readonly", true);
             $("#satuan").val("");
             $("#harga").val("0");
@@ -79,7 +93,7 @@
                     $("[name='nama_barang']").append(`<option value=""  data-id="">Pilih nama barang</option>`);
                     $("[name='nama_barang']option[value='']").prop("selected", true);
                     data?.map((it) => {
-                        $("[name='nama_barang']").append(`<option value="${it.nama_barang}"  data-id="${it.kode_sampah}">${it.nama_barang}</option>`);
+                        $("[name='nama_barang']").append(`<option value="${it.nama_barang}"  data-id="${it.kode_sampah}">${it.nama_barang} ( ${formatRupiah(it.harga)} )</option>`);
                     });
                 }
             }
@@ -98,7 +112,7 @@
                 });
                 if (getter?.status ?? 400 == 200) {
                     const data = getter.data;
-                    console.log(data);
+                    $("[name='berat']").prop("readonly", false);
                     $("#satuan").val(data?.satuan ?? "");
                     $("#harga").val(data?.harga ?? "");
                 }
@@ -123,6 +137,13 @@
         }
     })
 
+    $("[name='berat']").keyup(function() {
+        if ($(this).val() != "") {
+            $("#save").prop("disabled", false);
+        } else {
+            $("#save").prop("disabled", true);
+        }
+    })
 
     $(document).on("click", ".edit", function() {
         var id = $(this).data("id");

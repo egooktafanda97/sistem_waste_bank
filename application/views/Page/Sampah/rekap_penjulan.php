@@ -24,7 +24,7 @@
                 <h5><?= $title ?? "" ?></h5>
                 <div class="card-header-right" style="display: flex; align-items: center;">
                     <div style="margin-right: 30px;">
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Buat Trasaksi Baru</button>
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus"></i> Tambah Data</button>
                     </div>
                     <div class="btn-group card-option">
                         <button type="button" class="btn dropdown-toggle btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

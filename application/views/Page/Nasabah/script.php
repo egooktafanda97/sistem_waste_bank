@@ -30,10 +30,11 @@
             selector: 'td:first-child'
         },
         searching: false,
-        paging: false,
+        paging: true,
         info: false
     });
-    $(".edit").click(function() {
+    $("#datatable-responsive_length").hide();
+    $(document).on("click", ".edit", function() {
         var id = $(this).data("id");
         $.ajax({
             url: "<?= base_url("Nasabah/getById") ?>",
@@ -55,7 +56,7 @@
             }
         });
     });
-    $(".delete").click(function() {
+    $(document).on("click", ".delete", function() {
         var id = $(this).data("id");
         swal({
             title: "Yakin?",

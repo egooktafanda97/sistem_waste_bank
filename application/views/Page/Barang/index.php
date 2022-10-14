@@ -130,10 +130,20 @@
                                 <input type="text" name="nama_barang" class="form-control form-control-sm" id="nama_barang" placeholder="Nama Barang" required readonly>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_nasabah">Satuan</label>
                                 <input type="text" name="satuan" class="form-control form-control-sm" id="satuan" placeholder="Satuan" required readonly>
+                            </div>
+                        </div> -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nama_nasabah">Satuan</label>
+                                <select name="satuan" id="satuan" class="form-control form-control-sm" placeholder="" required readonly>
+                                    <option value="">Satuan</option>
+                                    <option value="KG">KG</option>
+                                    <option value="BH">BH</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">

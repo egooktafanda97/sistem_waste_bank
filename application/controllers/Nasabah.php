@@ -12,15 +12,21 @@ class Nasabah extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Nasabah_model');
+        if (!auth()["user"]["id_bank_sampah"]) {
+            redirect("Login");
+        }
     }
 
     public function index()
     {
+        // var_dump($this->total());
+        // die();
         $data = [
             "title" => "Nasabah",
             "page" => $this->page . "index",
             "script" => $this->page . "script",
-            "nasabah" => $this->Nasabah_model->getAll()
+            "nasabah" => $this->Nasabah_model->getAll(),
+            "total" => $this->total()
         ];
         $this->load->view('Router/route', $data);
     }
@@ -168,5 +174,15 @@ class Nasabah extends CI_Controller
             "script" => $this->page . "script",
         ];
         $this->load->view('Router/route', $data);
+    }
+    public function total()
+    {
+        $nasabah = $this->db->get_where("nasabah", ["id_bank" => auth()["user"]["id_bank_sampah"]])->num_rows();
+        $this->db->select("sum(saldo) as saldo_nasabah");
+        $total_saldo = $this->db->get_where("nasabah", ["id_bank" => auth()["user"]["id_bank_sampah"]])->row_array();
+        return [
+            "total_nasabah" => $nasabah,
+            "total_saldo" => $total_saldo
+        ];
     }
 }
