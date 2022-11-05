@@ -11,3 +11,8 @@ function auth()
     $sesion = $CI->session->userdata("login");
     return $sesion;
 }
+
+function dump($args)
+{
+    echo json_encode($args);
+}

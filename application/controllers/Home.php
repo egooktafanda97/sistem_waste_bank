@@ -17,11 +17,29 @@ class Home extends CI_Controller
     }
     public function index()
     {
+
         $data = [
             "title" => "Rekapitulasi Penjualan Sampah",
             "page" => $this->page . "index",
             "script" => $this->page . "script",
+            "grafik" => $this->total()
         ];
         $this->load->view('Router/route', $data);
+    }
+
+    public function total()
+    {
+        $nasabah = $this->db->get_where("nasabah", ["id_bank" => auth()["user"]["id_bank_sampah"]])->num_rows();
+
+        $this->db->select("sum(saldo) as saldo_nasabah");
+        $total_saldo = $this->db->get_where("nasabah", ["id_bank" => auth()["user"]["id_bank_sampah"]])->row_array();
+
+        $saldo_bank = $this->db->get_where("bank_sampah", ["id_bank_sampah" => auth()["user"]["id_bank_sampah"]])->row_array();
+
+        return [
+            "total_nasabah" => $nasabah,
+            "total_saldo" => $total_saldo,
+            "saldo_bank" => $saldo_bank["saldo"] ?? 0
+        ];
     }
 }

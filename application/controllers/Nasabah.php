@@ -19,8 +19,6 @@ class Nasabah extends CI_Controller
 
     public function index()
     {
-        // var_dump($this->total());
-        // die();
         $data = [
             "title" => "Nasabah",
             "page" => $this->page . "index",
@@ -111,10 +109,9 @@ class Nasabah extends CI_Controller
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
         ];
-        $saveUser = $this->Query_model->update("users", $UserData, ["id" => $post["id_user"]]);
-        // nasabah
-        // generate no rekening 00001 num
-        // getNasabahBy id_user
+
+        $this->Query_model->update("users", $UserData, ["id" => $post["id_user"]]);
+
         $getNasabah = $this->Query_model->first("nasabah", ["id_user" => $post["id_user"]]);
         $nasabah = [
             "id_bank" => auth()["user"]["id_bank_sampah"],
