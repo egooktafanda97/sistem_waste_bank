@@ -99,7 +99,7 @@
                     } else {
                         localStorage.setItem('auth', JSON.stringify(res.data.result));
                         setTimeout(function() {
-                            window.location.href = '<?= base_url("Admin") ?>';
+                            window.location.href = '<?= base_url("Home") ?>';
                         }, 1000);
                     }
                 }).catch(function(err) {
