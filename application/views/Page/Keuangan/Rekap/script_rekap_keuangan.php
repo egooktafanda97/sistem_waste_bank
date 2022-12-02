@@ -70,9 +70,9 @@
                 __.map((it, inx) => {
                     jenis = it.jenis_sampah;
                     tgl = it.tanggal;
-                    total[it.nama_barang] = total[it.nama_barang] == null ? (it.total_berat) : (total[it.nama_barang] += it.total_berat);
+                    total[it.nama_barang] = total[it.nama_barang] == null ? (it.total_uang) : (total[it.nama_barang] += it.total_uang);
                     _html_item_conten += `
-                        <td>${it.total_berat} ${it.satuan}</td>
+                        <td>${formatRupiah(it.total_uang,"Rp.")}</td>
                     `;
                 });
                 _total.push(total);
@@ -90,9 +90,10 @@
             var _tb_total = ``;
 
             data_main?.header?.map((_, i) => {
+                _sumFooterTotal = _total.map(item => item[_.nama_barang])
+                    .reduce((prev, curr) => prev + curr, 0);
                 _tb_header += `<th>${makeAbbr(_.nama_barang)}</th>`;
-                _tb_total += `<th>${_total.map(item => item[_.nama_barang])
-                .reduce((prev, curr) => prev + curr, 0)}</th>`;
+                _tb_total += `<th>${formatRupiah(_sumFooterTotal)}</th>`;
             })
 
             _html_header = `
@@ -281,7 +282,7 @@
     var myChart = new Chart(ctx, config);
 
     const initDataChart = async (tanggal = "") => {
-        const gets = await axios.get("<?= base_url("Rekap/chartDataRekap/") ?>" + tanggal).catch(() => {
+        const gets = await axios.get("<?= base_url("RekapKeuangan/chartDataRekap/") ?>" + tanggal).catch(() => {
             console.log("error");
         });
         if (gets?.status ?? 400 == 200) {
@@ -396,7 +397,7 @@
 
     const initRekapThn = async (tahun = null) => {
         var thn = tahun != null ? tahun : ''
-        const gets = await axios.get("<?= base_url("Rekap/getDataRekaptahunan/") ?>" + thn).catch(() => {
+        const gets = await axios.get("<?= base_url("RekapKeuangan/getDataRekaptahunan/") ?>" + thn).catch(() => {
             console.log("error");
         });
         if (gets?.status ?? 400 == 200) {
@@ -404,41 +405,30 @@
             const main_data = gets.data;
 
             const data_main_tb = main_data?.list ?? [];
-            const data_main_head = main_data?.satuan ?? [];
             const data_main_total = main_data?.total ?? [];
             const data_main_bulan = main_data?.bulan ?? [];
 
 
-            var head_satuan = ``;
-            data_main_head.map((_x1, i1) => {
-                head_satuan += `
-                        <th style="vertical-align : middle;text-align:center;" scope="col" style="vertical-align : middle;text-align:center;">${_x1}</th>
-                `;
-            });
+
 
             var tbody_html = ``;
+            var foot_total = 0;
             data_main_tb.map((_x2, i2) => {
                 var h = ``;
-                data_main_head.map((__, inx) => {
-                    h += `<td>${_x2[__]}</td>`;
-                });
+
                 tbody_html += `
                     <tr>
                         <td style="vertical-align : middle;text-align:center;" scope="row">${moment(_x2.bulan).locale('ID').format('MMMM YYYY')}</td>
-                        ${h}
-                        <td style="vertical-align : middle;text-align:center;" scope="row">${_x2.total}</td>
+                        <td style="vertical-align : middle;text-align:center;" scope="row">${formatRupiah(_x2.total)}</td>
                     </tr>
                 `;
+                foot_total += _x2.total;
             });
 
-            var tfoot_html = ``;
-            var foot_total = 0;
-            data_main_head.map((_x1, i1) => {
-                tfoot_html += `
-                        <th style="vertical-align : middle;text-align:center;" scope="col" style="vertical-align : middle;text-align:center;">${data_main_total[_x1]}</th>
-                `;
-                foot_total += data_main_total[_x1];
-            });
+
+            // data_main_head.map((_x1, i1) => {
+            //     foot_total += data_main_total[_x1];
+            // });
 
 
 
@@ -446,18 +436,13 @@
                 <thead>
                     <tr>
                         <th scope="col" rowspan="2" style="vertical-align : middle;text-align:center;">Bulan</th>
-                        <th scope="col" colspan="2" style="vertical-align : middle;text-align:center;">Barang Masuk</th>
                         <th scope="col" rowspan="2" style="vertical-align : middle;text-align:center;">Total</th>
-                    </tr>
-                    <tr>
-                       ${head_satuan}
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th scope="col" style="vertical-align : middle;text-align:center;">Bulan</th>
-                        ${tfoot_html}
-                        <th scope="col" style="vertical-align : middle;text-align:center;">${foot_total}</th>
+                        <th scope="col" style="vertical-align : middle;text-align:center;">${formatRupiah(foot_total)}</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -473,8 +458,6 @@
             data_main_tb.map((_x2_, _i2) => {
                 arr_values.push(_x2_.total);
             })
-
-            console.log(arr_values);
 
             var rr = arr_values.map((__, i) => ~~((__ / foot_total) * 100));
 
@@ -507,9 +490,4 @@
             initRekapThn(Y);
         }
     });
-
-    $("#print-berat-tahunan").click(function() {
-        const tahun = $("#tahun").val();
-        window.open('<?= base_url("Printing/RekapBeratTahunanPrint/") ?>' + tahun, '_blank')
-    })
 </script>

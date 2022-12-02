@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+
+if (auth()["role"] == "SUPER_ADMIN") {
+    $pages = '/Admin/';
+} else if (auth()["role"] == "ADMIN_BANK") {
+    $pages = '/Page/';
+}
+?>
 
 <head>
     <title>Bank Sampah DLH Pelalawan</title>
@@ -149,17 +157,10 @@
                             <i class="feather icon-user"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-notification">
-                            <div class="pro-head">
-                                <img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-                                <span>John Doe</span>
-                                <a href="auth-signin.html" class="dud-logout" title="Logout">
-                                    <i class="feather icon-log-out"></i>
-                                </a>
-                            </div>
                             <ul class="pro-body">
-                                <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-                                <li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-                                <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
+                                <!-- <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li> -->
+                                <!-- <li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li> -->
+                                <li><a href="<?= base_url("Login/logout") ?>" class="dropdown-item"><i class="feather icon-log-out"></i>Logout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -190,7 +191,12 @@
             </div>
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
-            <?php $this->load->view('/Page/' . $page); ?>
+            <?php
+            $this->load->view($pages . $page);
+            ?>
+
+
+
             <!-- [ Main Content ] end -->
         </div>
     </div>
@@ -223,7 +229,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js">
     </script>
-    <?php !empty($script) ? $this->load->view('Page/' . $script) : ""; ?>
+    <?php !empty($script) ? $this->load->view($pages . $script) : ""; ?>
 
 </body>
 

@@ -4,15 +4,16 @@ use function PHPSTORM_META\map;
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Rekap extends CI_Controller
+class RekapKeuangan extends CI_Controller
 {
     // constructor
-    private $page = "Sampah/";
+    private $page = "Keuangan/";
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Nasabah_model');
         $this->load->library('form_validation');
+        $this->load->model('Nasabah_model');
 
         if (!auth()["user"]["id_bank_sampah"]) {
             redirect("Login");
@@ -24,12 +25,36 @@ class Rekap extends CI_Controller
         // die();
         $data = [
             "title" => "Rekapitulasi Penjualan Sampah",
-            "page" => $this->page . "rekap_pembelian",
-            "script" => $this->page . "script_rekap",
+            "page" => $this->page . "Rekap/rekap_keuangan",
+            "script" => $this->page . "Rekap/script_rekap_keuangan",
             "rekap" => $this->getTransaksi(),
             "jenis_sampah" => $this->jenis_sampah(),
+
+            "jenis"  => $this->_jenis_sampah(),
+            "nasabah" => $this->Nasabah_model->getAll(),
+            "transaksi" => $this->_getTransaksi()
         ];
         $this->load->view('Router/route', $data);
+    }
+    public function _getTransaksi()
+    {
+        $this->db->select("*, transaksi.tanggal as tanggal,transaksi.id_transaksi as id_transaksi");
+        $this->db->join("users", "users.id = transaksi.id_user_petugas");
+        $this->db->join("nasabah", "nasabah.id_nasabah = transaksi.id_nasabah");
+        $this->db->join("riwayat_saldo", "riwayat_saldo.id_riwayat  = transaksi.riwayat_id");
+        $this->db->where("nasabah.id_bank", auth()["user"]["id_bank_sampah"]);
+        if (!empty($_GET['cari']) && $_GET['cari'] != "") {
+            $this->db->like('nasabah.nama_nasabah', $_GET['cari'], 'both');
+        }
+        $this->db->order_by('transaksi.id_transaksi', 'DESC');
+        $result = $this->db->get_where("transaksi")->result_array();
+        return $result;
+    }
+    public function _jenis_sampah()
+    {
+        $this->db->where("id_bank", auth()["user"]["id_bank_sampah"]);
+        $ck = $this->db->get_where("jenis_sampah")->result_array();
+        return $ck;
     }
 
     public function rekap_penjualan_sampah($search = null)
@@ -129,7 +154,7 @@ class Rekap extends CI_Controller
         $result = [];
         $cc = [];
         foreach ($sampah as $value) {
-            $this->db->select("*,SUM(transaksi.berat) as total");
+            $this->db->select("*,SUM(transaksi.total) as total");
             $this->db->where("transaksi.id_bank", auth()["user"]["id_bank_sampah"]);
             $this->db->like('transaksi.tanggal', $tahun . "-" . $bulan, 'both');
             $this->db->where('transaksi.kode_barang', $value['kode_sampah']);
@@ -161,12 +186,6 @@ class Rekap extends CI_Controller
         }
 
         $res = [];
-        $this->db->select("satuan");
-        $this->db->group_by("satuan");
-        $_satuan = $this->db->get_where("sampah")->result_array();
-        $satuan = [];
-        foreach ($_satuan as $v)
-            array_push($satuan, $v['satuan']);
         $main_res = [];
         $total = [];
         for ($m = 1; $m <= 12; ++$m) {
@@ -179,35 +198,18 @@ class Rekap extends CI_Controller
             $this->db->where("transaksi.id_bank", auth()["user"]["id_bank_sampah"]);
             $this->db->like('transaksi.tanggal', $bln, 'both');
             $r = $this->db->get_where("transaksi")->result_array();
-            // foreach ($satuan as $_) {
             foreach ($r as $__) {
-                $res[$bln][$__['satuan']][] = $__['berat'];
-                $res[$bln]["total"][]   = $__['berat'];
+                $res[$bln]["total"][]   = $__['total'];
             }
             // }
-            if (empty($res[$bln])) {
-                foreach ($satuan as $s) {
-                    $res[$bln][$s] = 0;
-                    $total[$s] = empty($total[$s]) ? 0 : $total[$s] + 0;
-                    $res[$bln]["total"] = empty($res[$bln]["total"]) ? 0 : $res[$bln]["total"] + 0;
-                }
+
+            if (!empty($res[$bln]["total"])) {
+                $summar = array_sum($res[$bln]["total"]);
+                $res[$bln]["total"] = $summar;
             } else {
-                foreach ($satuan as $sa) {
-                    if (empty($res[$bln][$sa])) {
-                        $summar = 0;
-                        $res[$bln][$sa] = $summar;
-                        $total[$sa] = $total[$sa] + $summar;
-                    } else {
-                        $summar = array_sum($res[$bln][$sa]);
-                        $res[$bln][$sa] = $summar;
-                        $total[$sa] = $total[$sa] + $summar;
-                    }
-                }
-                if (!empty($res[$bln]["total"])) {
-                    $summar = array_sum($res[$bln]["total"]);
-                    $res[$bln]["total"] = $summar;
-                }
+                $res[$bln]["total"] = 0;
             }
+
             $res[$bln]["bulan"] = $bln;
         }
 
@@ -221,7 +223,6 @@ class Rekap extends CI_Controller
         echo json_encode([
             "list" => $result,
             "total" => $total,
-            "satuan" => $satuan,
             "bulan" => $bulan
         ]);
     }

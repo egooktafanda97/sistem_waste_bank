@@ -28,7 +28,8 @@ class Sampah extends CI_Controller
     public function getDataJenis()
     {
         $this->db->select("*,jenis_sampah.created_at as tgl_create");
-        $this->db->join("users", "users.id = jenis_sampah.user_entry");
+        $this->db->join("users", "users.id = jenis_sampah.user_entry", "left");
+        $this->db->where("jenis_sampah.id_bank", auth()["user"]["id_bank_sampah"]);
         $gett = $this->db->get_where("jenis_sampah")->result_array();
         return $gett;
     }

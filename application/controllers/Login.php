@@ -31,4 +31,9 @@ class Login extends CI_Controller
             echo json_encode(['status' => 'error', "result" => "username", "msg" => "Username tidak ditemukan"]);
         }
     }
+    public function logout()
+    {
+        session_destroy();
+        redirect(base_url("Login"));
+    }
 }

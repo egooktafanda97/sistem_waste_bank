@@ -42,14 +42,20 @@
                     <div style="margin-right: 30px;">
                         <button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus"></i> Buat Trasaksi Baru</button>
                     </div>
-                    <form action="" method="get">
-                        <div>
-                            <div class="form-group" style="display: flex;">
-                                <input type="text" name="cari" class="form-control form-control-sm form-control form-control-sm-sm" id="cari" placeholder="Cari nama nasabah">
-                                <button class="btn btn-primary btn-sm ml-1" style="width: 80px;">Cari</button>
+                    <div style="display: flex;">
+                        <form action="" method="get">
+                            <div style="display: flex;">
+                                <div class="form-group" style="display: flex; margin-right: 5px;">
+                                    <input type="month" name="bulan" class="form-control form-control-sm form-control form-control-sm-sm" id="cari-tr-bulan" placeholder="Cari nama nasabah" value="<?= $_GET['bulan'] ?? '' ?>">
+                                </div>
+                                <div class="form-group" style="display: flex;">
+                                    <input type="text" name="cari" class="form-control form-control-sm form-control form-control-sm-sm" id="cari" placeholder="Cari nama nasabah" value="<?= $_GET['cari'] ?? '' ?>">
+                                    <button class="btn btn-primary btn-sm ml-1" style="width: 80px;">Cari</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+
+                    </div>
                 </div>
 
                 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" width="100%">

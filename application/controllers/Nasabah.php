@@ -102,7 +102,7 @@ class Nasabah extends CI_Controller
             "id_bank_sampah" => auth()["user"]["id_bank_sampah"],
             "pin" => "1111",
             "username" => $post["username"],
-            "password" => $post["password"],
+            "password" => password_hash($post['password'], PASSWORD_DEFAULT),
             "role" => "NASABAH",
             "status_account" => "active",
             "foto" => "default.jpg",

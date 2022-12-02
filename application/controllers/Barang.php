@@ -27,7 +27,8 @@ class Barang extends CI_Controller
     }
     public function getDatabarang()
     {
-        $this->db->join("jenis_sampah", "jenis_sampah.kode = sampah.kode_jenis_sampah");
+        $this->db->join("jenis_sampah", "jenis_sampah.kode = sampah.kode_jenis_sampah", "left");
+        $this->db->where("sampah.id_bank", auth()["user"]["id_bank_sampah"]);
         $b = $this->db->get_where("sampah")->result_array();
         return $b;
     }
