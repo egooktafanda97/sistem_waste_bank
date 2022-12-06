@@ -187,7 +187,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_nasabah">Berat / Buah</label>
-                                <input type="text" name="berat" id="berat" class="form-control form-control-sm kode decimal" placeholder="" required readonly value="0.0">
+                                <input type="text" name="berat" id="berat" class="form-control form-control-sm kode decimal" placeholder="" required value="0.0">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -203,7 +203,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_nasabah">Harga / satuan</label>
-                                <input type="text" name="harga" id="harga" class="form-control form-control-sm kode" placeholder="" required readonly value="0">
+                                <input type="text" name="harga" id="harga" class="form-control form-control-sm kode" placeholder="" required value="0">
                             </div>
                         </div>
                         <div class="col-md-6">
