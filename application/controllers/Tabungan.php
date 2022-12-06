@@ -33,7 +33,8 @@ class Tabungan extends CI_Controller
             "title" => "Tabungan",
             "page" => $this->page . "index",
             "script" => $this->page . "script",
-            "nasabah" => $this->Nasabah_model->getAll()
+            "nasabah" => $this->Nasabah_model->getAll(),
+            "total" => $this->total()
         ];
         return $data;
     }
@@ -451,6 +452,16 @@ class Tabungan extends CI_Controller
         return [
             "id_riwayat" => $insert_id,
             "data" => $riwayat,
+        ];
+    }
+    public function total()
+    {
+        $nasabah = $this->db->get_where("nasabah", ["id_bank" => auth()["user"]["id_bank_sampah"]])->num_rows();
+        $this->db->select("sum(saldo) as saldo_nasabah");
+        $total_saldo = $this->db->get_where("nasabah", ["id_bank" => auth()["user"]["id_bank_sampah"]])->row_array();
+        return [
+            "total_nasabah" => $nasabah,
+            "total_saldo" => $total_saldo
         ];
     }
 }

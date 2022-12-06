@@ -93,8 +93,8 @@
                                 <td><?= $v['desa'] ?></td>
                                 <td><?= $v['status'] ?></td>
                                 <td>
-                                    <button data-id="<?= $v['id_bank_sampah'] ?>" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-success btn-sm edit"><i class="fa fa-edit"></i></button>
-                                    <button data-id="<?= $v['id_bank_sampah'] ?>" class="btn btn-danger btn-sm delete"><i class="fa fa-trash"></i></button>
+                                    <button data-id="<?= $v['id'] ?>" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-success btn-sm edit"><i class="fa fa-edit"></i></button>
+                                    <button data-id="<?= $v['id'] ?>" class="btn btn-danger btn-sm delete"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -146,13 +146,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_nasabah">Desa</label>
-                                <input type="text" name="desa" class="form-control form-control-sm kode" id="desa" required>
+                                <input type="text" name="desa" class="form-control form-control-sm kode" id="desa">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_nasabah">Koordinat</label>
-                                <input type="text" name="koordinat" class="form-control form-control-sm kode" id="koordinat" required>
+                                <input type="text" name="koordinat" class="form-control form-control-sm kode" id="koordinat" placeholder="kosongkan jika tidak ada">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -164,7 +164,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_nasabah">Password</label>
-                                <input type="password" name="password" class="form-control form-control-sm kode" id="password" required>
+                                <input type="password" name="password" class="form-control form-control-sm kode" id="password">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nama_nasabah">Status</label>
+                                <select name="status" class="form-control form-control-sm">
+                                    <option value="AKTIF">AKTIF</option>
+                                    <option value="TIDAK_AKTIF">TIDAK AKTIF</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-12">

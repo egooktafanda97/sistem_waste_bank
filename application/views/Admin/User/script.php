@@ -147,83 +147,23 @@
 
     $(document).on("click", ".edit", function() {
         var id = $(this).data("id");
-        $("[name='jenis_sampah']").attr("readonly", false);
-        $("[name='berat']").prop("readonly", false);
-        $("[name='satuan']").attr("readonly", false);
-        $("[name='harga']").prop("readonly", false);
-        $("[name='nama_barang']").attr("readonly", true);
-
-        $("[name='jenis_sampah']").val("")
-        $("[name='nama_barang']").val("")
-        $("#satuan").val("");
-        $("#harga").val("0");
-
         $.ajax({
-            url: "<?= base_url("Transaksi/getById") ?>",
+            url: "<?= base_url("User/getById") ?>",
             type: "post",
             data: {
                 id: id
             },
             dataType: "json",
             success: function(data) {
-                $("[name='id_transaksi']").val(data.id_transaksi);
-                $("select[name='id_nasabah']").val(data.id_nasabah);
-                $('.selectpicker').selectpicker('refresh');
-
-                // /////////////////////////////////////////////////
-                $("[name='jenis_sampah']").attr("readonly", false);
-                $("[name='berat']").prop("readonly", false);
-                $("[name='satuan']").attr("readonly", false);
-                $("[name='harga']").prop("readonly", false);
-
-                if (data.jenis_sampah == "") {
-
-                } else {
-                    $("#jenis_sampah").val(data.jenis_sampah);
-                    $("[name='id_jenis_sampah']").val(data.id_jenis_sampah);
-
-                    async function getByKodeJenis(kode, barang) {
-                        const getter = await axios.get("<?= base_url("Transaksi/nama_barang_sampah/") ?>" + kode).catch(() => {
-                            console.log("err");
-                        });
-                        if (getter?.status ?? 400 == 200) {
-                            const data = getter.data;
-                            $("[name='nama_barang']").attr("readonly", false);
-                            $("[name='nama_barang']").empty();
-                            $("[name='nama_barang']").append(`<option value=""  data-id="">Pilih nama barang</option>`);
-                            data?.map((it) => {
-                                $("[name='nama_barang']").append(`<option value="${it.nama_barang}"  data-id="${it.kode_sampah}" selected="${it.nama_barang == barang?'selected':''}">${it.nama_barang}</option>`);
-                            });
-                            $("[name='nama_barang']option[value='barang']").prop("selected", true);
-
-                        }
-                    }
-                    getByKodeJenis(data.kode_jenis_sampah, data.nama_barang);
-                }
-                $("[name='berat']").val(data.berat);
-                $("[name='satuan']").val(data.satuan);
-                $("[name='harga']").val(data.harga);
-                $("[name='method']").val(data.method);
-
-                var berat = isNaN(parseFloat(data.berat)) ? 0 : parseFloat(data.berat) ?? 0;
-                var harga = isNaN(parseFloat(data.harga)) ? 0 : parseFloat(parseFloat(data.harga)) ?? 0;
-                var kalkulate = berat * harga;
-                $("#total").val(formatRupiah(kalkulate))
-                $("[name='total']").val(kalkulate);
-            }
-        });
-    });
-    $(document).on("click", ".batal", function() {
-        var id = $(this).data("id");
-        swal({
-            title: "Yakin?",
-            text: "Jika dibatalkan saldo akan kembali seperti sebelum nya",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((willDelete) => {
-            if (willDelete) {
-                window.location = "<?= base_url("Transaksi/batalTransaksi/") ?>" + id;
+                $("[name='id_bank_sampah']").val(data.id_bank_sampah);
+                $("[name='nama_bank']").val(data.nama_bank);
+                $("[name='tahun']").val(data.tahun);
+                $("[name='alamat']").val(data.alamat);
+                $("[name='kecamatan']").val(data.kecamatan);
+                $("[name='desa']").val(data.desa);
+                $("[name='koordinat']").val(data.koordinat);
+                $("[name='username']").val(data.username);
+                $("[name='status']").val(data.status);
             }
         });
     });
@@ -231,13 +171,13 @@
         var id = $(this).data("id");
         swal({
             title: "Yakin?",
-            text: "Jika dihapus tidak ada perubahan saldo..",
+            text: "",
             icon: "warning",
             buttons: true,
             dangerMode: true,
         }).then((willDelete) => {
             if (willDelete) {
-                window.location = "<?= base_url("Transaksi/delete/") ?>" + id;
+                window.location = "<?= base_url("User/deleted/") ?>" + id;
             }
         });
     });

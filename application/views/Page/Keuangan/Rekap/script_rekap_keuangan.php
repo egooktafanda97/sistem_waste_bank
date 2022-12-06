@@ -326,7 +326,7 @@
                 td_up += `
                     <tr style="background:${colors[i]}">
                         <td scope="row">${_.barang}</td>
-                        <td>${_.total} ${_.satuan}</td>
+                        <td>${formatRupiah(_.total)??"0"}</td>
                     </tr>
                 `;
             });
@@ -335,7 +335,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Nama Barang</th>
-                        <th scope="col">Total Berat</th>
+                        <th scope="col">Total</th>
                     </tr>
                 </thead>
                 <tbody>

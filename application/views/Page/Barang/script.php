@@ -83,7 +83,6 @@
             },
             dataType: "json",
             success: function(data) {
-                console.log(data);
                 $("[name='id_sampah']").val(data.id_sampah);
                 $("[name='kode_sampah']").val(data.kode_sampah);
                 $("[name='kode_jenis_sampah']").val(data.kode_jenis_sampah);

@@ -6,7 +6,9 @@
                 <div class="main-menu-header">
                     <img class="img-radius" src="https://bidangsampahdlhpelalawan.com/rest/public/img/users/default.png" alt="User-Profile-Image">
                     <div class="user-details">
-                        <div id="more-details">Admin <i class="fa fa-caret-down"></i></div>
+                        <div id="more-details">
+                            <?= $this->session->userdata("login")["nama"] ?>
+                        </div>
                     </div>
                 </div>
                 <div class="collapse" id="nav-user-link">

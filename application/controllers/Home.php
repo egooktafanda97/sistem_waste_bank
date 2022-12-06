@@ -21,9 +21,20 @@ class Home extends CI_Controller
             "title" => "Rekapitulasi Penjualan Sampah",
             "page" => $this->page . "index",
             "script" => $this->page . "script",
-            "grafik" => $this->total()
+            "grafik" => $this->total(),
+            "counting" => $this->counting()
         ];
         $this->load->view('Router/route', $data);
+    }
+    public function counting()
+    {
+        $this->db->join("users", "users.id = nasabah.id_user", "left");
+        $Q1 = $this->db->get_where("nasabah")->num_rows();
+        $Q2 = $this->db->get_where("bank_sampah", ["status" => "AKTIF"])->num_rows();
+        return [
+            "nasabah" => $Q1,
+            "bank" => $Q2
+        ];
     }
 
     public function total()

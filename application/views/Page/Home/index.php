@@ -81,7 +81,9 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="chartTransaksi"></div>
+                <div style="width:100%; margin:10px auto;">
+                    <canvas id="Graph_tahun_tr" style="width:100%;"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -93,7 +95,9 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="chartTransaksi"></div>
+                <div style="width:100%; margin:10px auto;">
+                    <canvas id="Graph_tahun" style="width:100%;"></canvas>
+                </div>
             </div>
         </div>
     </div>

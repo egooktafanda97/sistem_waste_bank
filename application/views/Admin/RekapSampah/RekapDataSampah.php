@@ -29,7 +29,12 @@
 </style>
 <div class="row">
     <!-- [ sample-page ] start -->
+
     <div class="col-sm-12">
+        <a href="<?= base_url("RekapAdmin/index") ?>" class="btn btn-with" style="margin-bottom: 5px; color: #fff;">
+            <i class="fa fa-arrow-left"></i> kembali
+        </a>
+
         <div class="card cards">
             <div class="col-sm-12">
                 <div class=" mt-3">
@@ -43,6 +48,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Rekap Berat Sampah</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-harga-tab" data-toggle="pill" href="#pills-harga" role="tab" aria-controls="pills-harga" aria-selected="false">Harga Sampah</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Grafik</a>
@@ -163,6 +171,51 @@
                                 <div class="rekap_perjenis" style="padding-bottom: 20px;">
                                     <table id="datatable-responsive" class="tb_rekap_perjenis table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
 
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-harga" role="tabpanel" aria-labelledby="pills-harga-tab">
+                                <div class="mb-3">
+                                    <div style="display: flex;justify-content: flex-end; align-items: center;">
+                                        <div></div>
+                                        <div class="form-group">
+                                            <a href="<?= base_url("PrintingAdmin/print_harga/" . $this->uri->segment(3)) ?>" id="print-berat-tahunan" class="btn btn-secondary"><i class="fa fa-print"></i> Print</a>
+                                        </div>
+                                    </div>
+                                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Kode Sampah</th>
+                                                <th>Jenis Sampah</th>
+                                                <th>Nama Sampah</th>
+                                                <th>Satuan</th>
+                                                <th>Harga</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Kode Sampah</th>
+                                                <th>Jenis Sampah</th>
+                                                <th>Nama Sampah</th>
+                                                <th>Satuan</th>
+                                                <th>Harga</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <?php $i = 1;
+                                            foreach ($harga_sampah as $value) : ?>
+                                                <tr>
+                                                    <td><?= $i++ ?></td>
+                                                    <td><?= $value['kode_sampah'] ?></td>
+                                                    <td><?= $value['jenis'] ?></td>
+                                                    <td><?= $value['nama_barang'] ?></td>
+                                                    <td><?= $value['satuan'] ?></td>
+                                                    <td><?= $value['harga'] ?></td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-
 if (auth()["role"] == "SUPER_ADMIN") {
+
     $pages = '/Admin/';
 } else if (auth()["role"] == "ADMIN_BANK") {
     $pages = '/Page/';
