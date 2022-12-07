@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$active_group = 'default';
+$active_group = 'deploy';
 $query_builder = TRUE;
 
 $db['default'] = array(
