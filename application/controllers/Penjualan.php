@@ -44,6 +44,20 @@ class Penjualan extends CI_Controller
         ];
         $this->load->view('Router/route', $data);
     }
+    public function printing()
+    {
+        $data = [
+            "title" => "Penjualan Sampah",
+            "page" => $this->page . "index.php",
+            "script" => $this->page . "script",
+            "table" => $this->table_penjulan,
+            "primary" => $this->primary,
+            "data_penjualan" => $this->getDataPenjualan(),
+            "jenis" => $this->getDatabarang(),
+            "t_jual" => $this->t_jual()
+        ];
+        $this->load->view('Page/Penjualan/printing', $data);
+    }
 
     public function t_jual()
     {
@@ -110,6 +124,12 @@ class Penjualan extends CI_Controller
     }
     public function getDataPenjualan()
     {
+        if (!empty($_GET['bulan']))
+            $this->db->where("bulan", $_GET['bulan']);
+        if (!empty($_GET['cari']))
+            $this->db->like("sampah.nama_barang", $_GET['cari']);
+
+
         $this->db->join("sampah", "sampah.id_sampah = " . $this->table . ".id_sampah", "left");
         $this->db->join("tempat_jual", "tempat_jual.id_tempat_jaul = " . $this->table . ".id_tempat_jual", "left");
         $this->db->where("id_bank_sampah", auth()["user"]["id_bank_sampah"]);

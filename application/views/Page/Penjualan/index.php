@@ -56,11 +56,12 @@ unset($tb[11]);
                         <form action="" method="get">
                             <div style="display: flex;">
                                 <div class="form-group" style="display: flex; margin-right: 5px;">
-                                    <input type="month" name="bulan" class="form-control form-control-sm form-control form-control-sm-sm" id="cari-tr-bulan" placeholder="Cari nama nasabah" value="<?= $_GET['bulan'] ?? '' ?>">
+                                    <input type="month" name="bulan" class="form-control form-control-sm form-control form-control-sm-sm" id="cari-tr-bulan" placeholder="" value="<?= $_GET['bulan'] ?? '' ?>">
                                 </div>
                                 <div class="form-group" style="display: flex;">
-                                    <input type="text" name="cari" class="form-control form-control-sm form-control form-control-sm-sm" id="cari" placeholder="Cari nama nasabah" value="<?= $_GET['cari'] ?? '' ?>">
-                                    <button class="btn btn-primary btn-sm ml-1" style="width: 80px;">Cari</button>
+                                    <input type="text" name="cari" class="form-control form-control-sm form-control form-control-sm-sm" id="cari" placeholder="Cari nama sampah" value="<?= $_GET['cari'] ?? '' ?>">
+                                    <button type="submit" class="btn btn-primary btn-sm ml-1 mr-1" style="width: 80px;">Cari</button>
+                                    <a target="_blank" href="<?= base_url("Penjualan/printing?" . $_SERVER['QUERY_STRING']) ?>" class="btn btn-secondary btn-sm" style="width: 100px;"><i class="fa fa-print"></i> Print</a>
                                 </div>
                             </div>
                         </form>
@@ -86,7 +87,19 @@ unset($tb[11]);
                             <th>Nama Barang</th>
                             <?php
                             foreach ($tb as $vv) : ?>
-                                <th><?= str_replace('_', ' ', $vv); ?></th>
+                                <th>
+                                    <?php
+                                    $z = 0;
+                                    foreach ($data_penjualan as $v) {
+                                        $z += floatval($v['total']);
+                                    }
+                                    if ($vv == "total") {
+                                        echo rupiah($z);
+                                    } else {
+                                        echo str_replace('_', ' ', $vv);
+                                    }
+                                    ?>
+                                </th>
                             <?php endforeach ?>
                             <th>Action</th>
                         </tr>
@@ -100,7 +113,14 @@ unset($tb[11]);
                                 <td><?= $v['nama_barang'] ?></td>
                                 <?php
                                 foreach ($tb as $vv) : ?>
-                                    <td><?= $v[$vv] ?></td>
+                                    <td><?php
+                                        if ($vv == "harga_jual" || $vv == "total") {
+                                            echo rupiah($v[$vv]);
+                                        } else {
+                                            echo $v[$vv];
+                                        }
+
+                                        ?></td>
                                 <?php endforeach ?>
                                 <td>
                                     <button data-id="<?= $v['id_penjualan'] ?>" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-success btn-sm edit"><i class="fa fa-edit"></i></button>
@@ -159,6 +179,12 @@ unset($tb[11]);
                             <div class="form-group">
                                 <label for="nama_nasabah">Berat</label>
                                 <input type="text" name="berat" id="berat" class="form-control form-control-sm kode decimal" placeholder="" required value="0.0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nama_nasabah">Satuan</label>
+                                <input type="text" name="satuan" id="satuan" class="form-control form-control-sm kode decimal" placeholder="" required readonly value="0.0">
                             </div>
                         </div>
                         <div class="col-md-6">

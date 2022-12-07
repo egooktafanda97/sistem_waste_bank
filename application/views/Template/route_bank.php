@@ -78,7 +78,7 @@
                 </li>
 
                 <li class="nav-item pcoded-hasmenu">
-                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa fa-money"></i></span><span class="pcoded-mtext">Penjualan</span></a>
+                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa fa-truck"></i></span><span class="pcoded-mtext">Penjualan</span></a>
                     <ul class="pcoded-submenu">
                         <li>
                             <a href="<?= base_url("Penjualan/index") ?>">Penjualan</a>

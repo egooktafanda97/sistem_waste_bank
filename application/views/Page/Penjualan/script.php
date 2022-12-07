@@ -58,6 +58,7 @@
             if (get) {
                 const data = get?.data;
                 $("#harga_bank").val(data?.harga)
+                $("#satuan").val(data?.satuan);
             }
         }
         getpenjualan();
