@@ -231,6 +231,13 @@ if (auth()["role"] == "SUPER_ADMIN") {
     </script>
     <?php !empty($script) ? $this->load->view($pages . $script) : ""; ?>
 
+
+    <?php
+
+    unset($_SESSION['success']);
+    unset($_SESSION['error']);
+    ?>
+
 </body>
 
 </html>
